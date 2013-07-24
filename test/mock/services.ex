@@ -9,8 +9,16 @@ defmodule MockService do
 	def authenticate_client?("client", "sekret"), do: true
 	def authenticate_client?(_, _), do: false
 
+	def assign_access_token(to: client, with: scope) do
+		Token.new(access_token: generate_token(client, nil, scope))
+	end
+
 	def assign_access_token(to: client, for: user, with: scope) do
 		Token.new(access_token: generate_token(client, user, scope))
+	end
+
+	def assign_access_token(to: client, via: _refresh_token, with: new_scope) do
+		Token.new(access_token: generate_token(client, nil, new_scope))
 	end
 end
 
@@ -27,6 +35,10 @@ defmodule MockService2 do
 
 	def assign_access_token(to: client, for: user, with: scope) do
 		Token.new(access_token: generate_token(client, user, scope))
+	end
+
+	def assign_access_token(to: client, via: _refresh_token, with: new_scope) do
+		Token.new(access_token: generate_token(client, nil, new_scope))
 	end
 
 	def generate_token(client, user, nil ) do

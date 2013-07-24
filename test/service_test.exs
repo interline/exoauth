@@ -40,6 +40,17 @@ defmodule ServiceTest do
 		successful_request = Keyword.put failing_request, :client_secret, "sekret"
 		assert AccessToken[] = MockService.grant_access(successful_request)
 	end
+
+	test :refresh_token_grant do
+		request = [ grant_type: :refresh_token, client_id: "client" ]
+		assert :invalid_request = MockService.grant_access(request)
+
+		request = Keyword.put request, :client_secret, "sekret"
+		assert :invalid_request = MockService.grant_access(request)
+
+		request = Keyword.put request, :refresh_token, "refresh-token"
+		assert AccessToken[] = MockService.grant_access(request)
+	end
 end
 
 
