@@ -54,6 +54,8 @@ defmodule OAuth2.Service do
         assign_access_token(to: client, via: refresh_token, with: new_scope)
       end
 
+      def grant_access(_type, _opts), do: :unsupported_grant_type
+
       def generate_token(_client, _user, _scope) do
         OAuth2.Utils.UUID.v4
       end

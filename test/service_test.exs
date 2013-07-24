@@ -51,6 +51,11 @@ defmodule ServiceTest do
 		request = Keyword.put request, :refresh_token, "refresh-token"
 		assert AccessToken[] = MockService.grant_access(request)
 	end
+
+	test :unsupported_grant_type do
+		request = [ grant_type: :foo, client_id: "client", client_secret: "sekret" ]
+		assert :unsupported_grant_type = MockService.grant_access(request)
+	end
 end
 
 
