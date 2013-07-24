@@ -1,0 +1,1 @@
+defrecord OAuth2.AccessToken, access_token: nil
