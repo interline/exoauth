@@ -15,7 +15,8 @@ defmodule Exoauth.Mixfile do
   # Returns the list of dependencies in the format:
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps(:prod) do
-    [ { :bcrypt, github: "smarkets/erlang-bcrypt" } ]
+    [ { :bcrypt, github: "smarkets/erlang-bcrypt" },
+      { :jsonex, github: "devinus/jsonex" } ]
   end
 
   defp deps(_) do

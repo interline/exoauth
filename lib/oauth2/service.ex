@@ -9,24 +9,27 @@ defmodule OAuth2.Service do
       import OAuth2.Service
 
       def grant_access(opts) do
-        try do
-          grant_type    = Keyword.fetch!(opts, :grant_type)
-          client_id     = Keyword.fetch!(opts, :client_id)
-          client_secret = Keyword.fetch!(opts, :client_secret)
+        grant_type    = Dict.fetch!(opts, :grant_type)
+        client_id     = Dict.fetch!(opts, :client_id)
+        client_secret = Dict.fetch!(opts, :client_secret)
 
-          if authenticate_client?(client_id, client_secret) do
-            grant_access(grant_type, opts)
-          else
-            :invalid_client
-          end
-        rescue
-          [ KeyError ] -> :invalid_request
+        if authenticate_client?(client_id, client_secret) do
+          grant_access(grant_type, opts)
+        else
+          { :error, :invalid_client }
         end
+      rescue
+        KeyError -> { :error, :invalid_request }
+      end
+
+      def grant_access(type, opts) when is_binary(type) do
+        type = binary_to_existing_atom(type)
+        grant_access(type, opts)
       end
 
       def grant_access(:password, opts) do
-        username = Keyword.fetch!(opts, :username)
-        password = Keyword.fetch!(opts, :password)
+        username = Dict.fetch!(opts, :username)
+        password = Dict.fetch!(opts, :password)
 
         if authenticate_user?(username, password) do
           client = opts[:client_id]
@@ -34,7 +37,7 @@ defmodule OAuth2.Service do
           key    = generate_token(client, username, scope)
           assign_access_token(to: client, for: username, with: scope)
         else
-          :invalid_credentials
+          { :error, :invalid_credentials }
         end
       end
 
@@ -47,20 +50,20 @@ defmodule OAuth2.Service do
       end
 
       def grant_access(:refresh_token, opts) do
-        refresh_token = Keyword.fetch!(opts, :refresh_token)
+        refresh_token = Dict.fetch!(opts, :refresh_token)
         client        = opts[:client_id]
         new_scope     = opts[:scope]
 
         assign_access_token(to: client, via: refresh_token, with: new_scope)
       end
 
-      def grant_access(_type, _opts), do: :unsupported_grant_type
+      def grant_access(_type, _opts), do: { :error, :unsupported_grant_type }
 
       def generate_token(_client, _user, _scope) do
         OAuth2.Utils.UUID.v4
       end
 
-      def error_description(error), do: atom_to_binary(error)
+      def error_description(error), do: nil
 
       defoverridable [ generate_token: 3, error_description: 1 ]
     end
@@ -91,6 +94,6 @@ defmodule OAuth2.Service do
     iex> assign_access_token(to: client, via: refresh_token, with: new_scope)
 
   """
-  defcallback assign_access_token(opts :: Keyword.t) :: OAuth2.AccessToken.t | response_error
+  defcallback assign_access_token(opts :: Dict.t) :: OAuth2.AccessToken.t | { :error, response_error }
   defcallback error_description(error :: response_error) :: binary
 end

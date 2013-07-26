@@ -1,9 +1,12 @@
 defmodule HTTP.Auth.Basic do
+  def encode(username, password) do
+    :base64.encode(username <> ":" <> password)
+  end
+
   def decode(encoded) when is_binary(encoded) do
     parts = encoded 
-    	|> :base64.decode
-    	|> String.split(":")
-    	|> Enum.map(URI.decode &1)
+      |> :base64.decode
+      |> String.split(":")
     
     destructure([ client_id, client_secret ], parts)
     
