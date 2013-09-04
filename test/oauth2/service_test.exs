@@ -1,7 +1,7 @@
-Code.require_file "test_helper.exs", __DIR__
-Code.require_file "mock/services.ex", __DIR__
+Code.require_file "../test_helper.exs", __DIR__
+Code.require_file "../mock/services.exs", __DIR__
 
-defmodule ServiceTest do
+defmodule OAuth2.ServiceTest do
 	use ExUnit.Case
 
 	alias OAuth2.AccessToken

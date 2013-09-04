@@ -6,17 +6,17 @@ defmodule OAuth2.TokenEndpoint do
       use Dynamo.Router
       alias OAuth2.AccessToken
       alias OAuth2.Filters
-  
+
       filter Filters.NoCache
       filter Filters.Json.new
       filter Filters.ContentType
-      filter Filters.Authorization.Basic
+      filter Filters.Auth.Basic
       filter Filters.ClientId
       filter Filters.GrantType
 
       post "/" do
         conn = var!(conn)
-        
+
         params = 
           Enum.map conn.params, fn { k, v } -> 
             { binary_to_existing_atom(k), v }
@@ -48,7 +48,7 @@ defmodule OAuth2.TokenEndpoint do
       @doc "override this to add error_uri"
       def error_response(error) do
         error_description = unquote(service).error_description(error)
-        
+
         unless nil? error_description do
           resp = [ error_description: error_description ]
         end
@@ -62,7 +62,7 @@ defmodule OAuth2.TokenEndpoint do
       end
 
       def error_uri(error), do: nil
-   
+
       defoverridable [ token_response: 1, error_response: 1, error_uri: 1 ]
     end
   end

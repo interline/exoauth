@@ -1,4 +1,6 @@
-defmodule OAuth2.Filters.Authorization.Basic do
+defmodule OAuth2.Filters.Auth.Basic do
+  alias OAuth2.HTTP.Auth.Basic, as: BasicAuth
+
   def service(conn, fun) do
     conn = conn.fetch([:headers, :params])
     headers = conn.req_headers
@@ -10,7 +12,7 @@ defmodule OAuth2.Filters.Authorization.Basic do
   end
 
   defp client_from_header("Basic " <> header, conn, fun) do
-    case HTTP.Auth.Basic.decode(header) do
+    case BasicAuth.decode(header) do
       { id, secret } ->
         fun.(conn
               .assign(:client_id, id)

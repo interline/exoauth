@@ -1,8 +1,8 @@
-Code.require_file "test_helper.exs", __DIR__
-Code.require_file "mock/services.ex", __DIR__
+Code.require_file "../test_helper.exs", __DIR__
+Code.require_file "../mock/services.exs", __DIR__
 
 
-defmodule TokenEndpointTest do
+defmodule OAuth2.TokenEndpointTest do
 	defmodule Endpoint do
 		use OAuth2.TokenEndpoint, service: MockService
 	end
@@ -129,7 +129,7 @@ defmodule TokenEndpointTest do
   end
   
   defp put_authorization_header(conn, username, password) do
-    auth = "Basic " <> HTTP.Auth.Basic.encode(username, password)
+    auth = "Basic " <> OAuth2.HTTP.Auth.Basic.encode(username, password)
     conn.put_req_header("Authorization", auth)
   end
 

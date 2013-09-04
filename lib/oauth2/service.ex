@@ -72,11 +72,14 @@ defmodule OAuth2.Service do
   @type response_error :: :inavlid_request     | :invalid_client         | :invalid_grant
                         | :unauthorized_client | :unsupported_grant_type | :invalid_scope
 
-  @doc "authenticates a client id/secret pair"
-  defcallback authenticate_client?(id :: binary, secret :: binary | nil) :: true | false
+  @doc "Authenticates a client id/secret pair"
+  defcallback authenticate_client?(id :: binary, secret :: binary | nil) :: boolean
 
-  @doc "authenticates a username/password pair"
-  defcallback authenticate_user?(username :: binary, password :: binary) :: true | false
+  @doc "Authenticates a username/password pair"
+  defcallback authenticate_user?(username :: binary, password :: binary) :: boolean
+
+  @doc "Retrieve authentication by token"
+  defcallback access_token(token :: binary) :: OAuth2.AccessToken.t | { :error, response_error }
 
   @doc """
   There are currently 3 ways to assign an access token, one for each of the supported grant types

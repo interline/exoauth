@@ -1,8 +1,8 @@
-Code.require_file "test_helper.exs", __DIR__
+Code.require_file "../../../test_helper.exs", __DIR__
 
-defmodule BasicAuthTest do
+defmodule OAuth2.HTTP.Auth.BasicTest do
   use ExUnit.Case
-  alias HTTP.Auth.Basic, as: Basic
+  alias OAuth2.HTTP.Auth.Basic, as: Basic
 
   test :decode do
     assert {"Aladdin", "open sesame"} == Basic.decode("QWxhZGRpbjpvcGVuIHNlc2FtZQ==")
@@ -17,3 +17,4 @@ defmodule BasicAuthTest do
   	assert :invalid_credentials == Basic.decode(invalid_hash)
 	end
 end
+
