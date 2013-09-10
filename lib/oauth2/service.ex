@@ -79,7 +79,7 @@ defmodule OAuth2.Service do
   defcallback authenticate_user?(username :: binary, password :: binary) :: boolean
 
   @doc "Retrieve authentication by token"
-  defcallback access_token(token :: binary) :: OAuth2.AccessToken.t | { :error, response_error }
+  defcallback access_token(token :: binary) :: OAuth2.AccessToken.t | nil 
 
   @doc """
   There are currently 3 ways to assign an access token, one for each of the supported grant types

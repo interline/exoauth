@@ -14,7 +14,7 @@ defmodule OAuth2.Filters.Auth.Bearer do
 
   defp authenticate("Bearer " <> token, service, conn, fun) do
     case service.access_token(token) do
-      { :error, :unauthorized_client } ->
+      nil ->
         unauthorized(conn)
       access_token ->
         conn = conn.put_private :token, access_token
