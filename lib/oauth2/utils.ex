@@ -1,11 +1,27 @@
 defmodule OAuth2.Utils.UUID do
-	use Bitwise
+  @compile :native
+
+  use Bitwise
+
   def v4 do
-    :random.seed :erlang.now
-    part = fn(bits) -> :random.uniform(trunc(:math.pow(2, bits))) - 1 end
-    y = part.(4)
-    y = bor(band(y, 3), 8)
-    <<f::size(32), s::size(16), t::size(16), r::size(16), v::size(48)>> = <<part.(48) :: size(48), 4 :: size(4), part.(12) :: size(12), y :: size(4), part.(60) :: size(60)>>
-    :erlang.iolist_to_binary(:io_lib.format("~.16b-~.16b-~.16b-~.16b-~.16b", [f,s,t,r,v]))
+    <<s0::32, s1::16, s2::12, s3::30, s4::32, _::6>> = :crypto.rand_bytes(16)
+    <<s2::16, s3::16, s4::48>> = <<4::4, s2::12, 2::2, s3::30, s4::32>>
+    iolist_to_binary [ hex(s0), ?-, hex(s1), ?-, hex(s2), ?-, hex(s3), ?-, hex(s4) ]
+  end
+
+  defp hex(n), do: hex(n, [])
+
+  defp hex(0, acc), do: acc
+  defp hex(n, acc) do
+    hex(n >>> 4, [ acc, hex_digit(n &&& 0x0f) ])
+  end
+
+  Enum.each 0..15, fn (n) ->
+    if n < 10 do
+      defp hex_digit(unquote(n)), do: unquote(?0 + n)
+    else
+      defp hex_digit(unquote(n)), do: unquote(?a + (n - 10))
+    end
   end
 end
+
