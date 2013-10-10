@@ -1,7 +1,6 @@
-[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "5e5d8ab299a451ffbf0552bc2190a5fcbec08c16", []},
-  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "38d7b6afdf2e232062a11c1f408c376d0e306ec3", []},
-  "jazz": {:git, "git://github.com/devinus/jsonex.git", "b623538e836d0623b73d9492fa8c254870adc3cc", []},
-  "jsonex": {:git, "git://github.com/devinus/jsonex.git", "b623538e836d0623b73d9492fa8c254870adc3cc", []},
-  "jsx": {:git, "git://github.com/talentdeficit/jsx.git", "352d6b21cbec4fe1b66bc7ce3ded67a3b32add2c", []},
+[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "2b2829f5855e4b2a6ba5e0ca5ccefd42fa2e9524", []},
+  "cowlib": {:git, "git://github.com/extend/cowlib.git", "2f35af5b0a67f591dde5ae4305a9587988a37c0c", [{:ref, "0.1.0"}]},
+  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "329744215acc43b8aa508e6313eb61588a13ecaf", []},
+  "jazz": {:git, "git@github.com:meh/jazz.git", "e8bf829c20dcde9816de44e80d4d1986132a978e", []},
   "mimetypes": {:git, "git://github.com/spawngrid/mimetypes.git", "47d37a977a7d633199822bf6b08353007483d00f", []},
-  "ranch": {:git, "git://github.com/extend/ranch.git", "4f70a16bbe08e446e8fec248ca345d5f8e7df038", [{:ref, "0.8.4"}]} ]
+  "ranch": {:git, "git://github.com/extend/ranch.git", "41705752ffc7e3ecb96eef8374015ead4ca7f699", [{:ref, "0.8.5"}]} ]

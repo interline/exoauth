@@ -125,7 +125,9 @@ defmodule OAuth2.TokenEndpointTest do
     content_type = conn.resp_headers["Content-Type"]
     assert !nil?(content_type)
     assert String.contains?(content_type, "application/json")
-    JSON.decode(conn.resp_body)
+    { :ok, body } = conn.resp_body
+    { :ok, json } = JSON.decode(body)
+    json
   end
   
   defp put_authorization_header(conn, username, password) do

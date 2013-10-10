@@ -14,7 +14,7 @@ defmodule MockService do
   end
 
   def access_token(_token) do
-    { :error, :unauthorized_client }
+  	nil
   end
 
 	def assign_access_token(to: client, with: scope) do
