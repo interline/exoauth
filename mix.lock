@@ -1,6 +1,6 @@
-[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "2b2829f5855e4b2a6ba5e0ca5ccefd42fa2e9524", []},
-  "cowlib": {:git, "git://github.com/extend/cowlib.git", "2f35af5b0a67f591dde5ae4305a9587988a37c0c", [{:ref, "0.1.0"}]},
-  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "329744215acc43b8aa508e6313eb61588a13ecaf", []},
-  "jazz": {:git, "git@github.com:meh/jazz.git", "e8bf829c20dcde9816de44e80d4d1986132a978e", []},
+[ "cowboy": {:git, "git://github.com/extend/cowboy.git", "df818625545d565b8b76fbc445063a4822114b93", []},
+  "cowlib": {:git, "git://github.com/extend/cowlib.git", "63298e8e160031a70efff86a1acde7e7db1fcda6", [{:ref, "0.4.0"}]},
+  "dynamo": {:git, "git://github.com/elixir-lang/dynamo.git", "60212718f3afd94a8fdadcdf0d20271d0d329543", []},
+  "jazz": {:git, "git@github.com:meh/jazz.git", "16bf652da2dd3e5ede82de8f121994ad6c23cf23", []},
   "mimetypes": {:git, "git://github.com/spawngrid/mimetypes.git", "47d37a977a7d633199822bf6b08353007483d00f", []},
-  "ranch": {:git, "git://github.com/extend/ranch.git", "41705752ffc7e3ecb96eef8374015ead4ca7f699", [{:ref, "0.8.5"}]} ]
+  "ranch": {:git, "git://github.com/extend/ranch.git", "5df1f222f94e08abdcab7084f5e13027143cc222", [{:ref, "0.9.0"}]} ]
